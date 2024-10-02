@@ -28,13 +28,23 @@ population_df = population_query[0]
 # remove totals row as this throws everything off and remove everything after 2019
 clipped = population_df.iloc[1:, 1:3]
 
+figure, axis = plt.subplots(3, 1)
+
+
 location = clipped['Location'][:80].to_numpy()
 location = [x.split(" ")[-1] for x in location ]
 population = clipped['Population'][:80].to_numpy()
 fig = plt.figure(figsize=(18,8))
 plt.inferno()
 plt.tight_layout()
-plt.bar(location, population, width=0.9, color={'tab:orange'})
+
+axis[0].bar(location, population, width=0.9, color={'tab:orange'})
+axis[0].set_title("2022")
+axis[1].bar(location, population, width=0.9, color={'tab:red'})
+axis[1].set_title("2021")
+axis[2].bar(location, population, width=0.9, color={'tab:purple'})
+axis[2].set_title("2020")
+
 plt.xticks(rotation=80, ha='center')
 
 plt.show()
